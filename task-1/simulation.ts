@@ -81,9 +81,11 @@ const totalEnergyKWh: number = powerDemand.reduce((a, b) => a + b, 0) * (MINUTES
 const theoreticalMaxKW: number = NUM_CHARGEPOINTS * POWER_KW;
 const actualMaxKW: number = Math.max(...powerDemand);
 const concurrencyFactor: number = actualMaxKW / theoreticalMaxKW;
+const chargingValues = powerDemand.slice(0, TICKS_PER_HOUR * HOURS_PER_DAY);
 
 // Output results
 console.log("🔌 Total energy consumed (kWh):", totalEnergyKWh.toFixed(2));
 console.log("⚡ Theoretical max power (kW):", theoreticalMaxKW);
 console.log("📈 Actual max power (kW):", actualMaxKW);
 console.log("📊 Concurrency factor:", concurrencyFactor.toFixed(2));
+console.log("⚡ Charging values:", chargingValues);
