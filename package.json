@@ -1,8 +1,15 @@
 {
   "name": "reonic-challenge",
   "version": "1.0.0",
+  "workspaces": [
+    "backend"
+  ],
   "scripts": {
-    "simulate": "ts-node task-1/simulation.ts"
+    "simulate": "ts-node task-1/simulation.ts",
+    "dev:backend": "npm run dev --workspace=backend",
+    "build:backend": "npm run build --workspace=backend",
+    "migrate:backend": "npm run prisma:migrate --workspace=backend",
+    "generate:backend": "npm run prisma:generate --workspace=backend"
   },
   "author": "Mikhail Ustenko",
   "license": "ISC",
