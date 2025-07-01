@@ -25,13 +25,7 @@ ChartJS.register(
   TimeScale
 );
 
-interface SimulationResult {
-  chargingPower: number;
-  actualMaxPower: number;
-  chargingValues: {
-    values: number[];
-  };
-}
+import type { SimulationResult } from '../types';
 
 interface ChartSectionProps {
   simResult: SimulationResult | null;
@@ -39,22 +33,26 @@ interface ChartSectionProps {
 
 export const ChartSection: React.FC<ChartSectionProps> = ({ simResult }) => {
   const barData = {
-    labels: [simResult ? `${simResult.chargingPower}kW` : 'Charging Power'],
+    labels: [simResult ? `${simResult.theoreticalMaxPower}kW` : 'Theoretical Max Power'],
     datasets: [
       {
-        label: 'Charging Value (kW)',
+        label: 'Actual Max Power (kW)',
         data: [simResult?.actualMaxPower || 0],
         backgroundColor: 'rgba(59, 130, 246, 0.7)',
       },
     ],
   };
 
+  const values = Array.isArray(simResult?.chargingValues) 
+    ? simResult.chargingValues 
+    : [];
+    
   const lineData = simResult ? {
-    labels: Array.from({ length: simResult.chargingValues?.values?.length || 24 }, (_, i) => `${i}:00`),
+    labels: Array.from({ length: values.length || 24 }, (_, i) => `${i}:00`),
     datasets: [
       {
         label: 'Charging Power (kW)',
-        data: simResult.chargingValues?.values?.slice(0, 24) || [],
+        data: values.slice(0, 24),
         borderColor: 'rgba(16, 185, 129, 1)',
         backgroundColor: 'rgba(16, 185, 129, 0.2)',
         fill: true,
