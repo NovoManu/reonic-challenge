@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import trashIcon from '../assets/trash.png';
 
 interface ChargePointType {
   count: number;
@@ -81,7 +82,7 @@ export const InputSection: React.FC<InputSectionProps> = ({
                     className="ml-2 text-red-500 hover:text-red-700 transition-colors"
                     onClick={() => removeChargePointType(idx)}
                   >
-                    Remove
+                    <img src={trashIcon} alt="Remove" className="h-5 w-5" />
                   </button>
                 )}
               </div>
