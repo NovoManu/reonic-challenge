@@ -1,9 +1,10 @@
-import Layout from './components/Layout/Layout';
+import Layout from './layout/Layout';
+import Dashboard from './views/Dashboard';
 
 function App() {
   return (
     <Layout>
-      <h1>App</h1>
+      <Dashboard />
     </Layout>
   );
 }
