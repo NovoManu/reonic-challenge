@@ -8,7 +8,7 @@ interface SimulationInput {
     chargingPower?: number;
 }
 
-const validateInput = (input: Partial<SimulationInput>) => {
+export const validateInput = (input: Partial<SimulationInput>) => {
     if (typeof input.numChargePoints !== 'number' || input.numChargePoints <= 0) {
         throw new Error('numChargePoints must be a positive number');
     }
