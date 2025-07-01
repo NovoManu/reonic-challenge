@@ -1,32 +1,87 @@
-.PHONY: dev-backend build-backend migrate-backend generate-backend
+.PHONY: help install dev test clean
+.DEFAULT_GOAL := help
 
-dev:
-	npm run dev:all
+# Colors
+GREEN  := $(shell tput -Txterm setaf 2)
+YELLOW := $(shell tput -Txterm setaf 3)
+WHITE  := $(shell tput -Txterm setaf 7)
+RESET  := $(shell tput -Txterm sgr0)
 
-dev-backend:
-	npm run dev:backend
+## —— 🚀 Project ———————————————————————————————————————————————————————————————
+# Root commands that handle everything
+install: install-root install-backend install-frontend ## Install all dependencies (root + workspaces)
 
-build-backend:
-	npm run build:backend
+install-root: ## Install root dependencies only
+	npm install
 
-migrate-backend:
-	npm run migrate:backend
+clean: clean-root clean-backend clean-frontend ## Remove all build artifacts and dependencies (root + workspaces)
 
-generate-backend:
+clean-root: ## Clean root artifacts only
+	rm -rf node_modules
+	rm -rf dist
+	rm -rf .next
+
+# Workspace-specific commands
+install-backend: ## Install backend dependencies and generate Prisma client
+	npm install --workspace=backend
 	npm run generate:backend
 
-dev-frontend:
+install-frontend: ## Install frontend dependencies only
+	npm install --workspace=frontend
+
+clean-backend: ## Clean backend artifacts only
+	rm -rf backend/node_modules
+	rm -rf backend/dist
+	rm -rf backend/.next
+	rm -rf backend/coverage
+
+clean-frontend: ## Clean frontend artifacts only
+	rm -rf frontend/node_modules
+	rm -rf frontend/dist
+	rm -rf frontend/.next
+
+## —— 🛠️  Backend ————————————————————————————————————————————————————————————
+dev-backend: ## Start backend in development mode
+	npm run dev:backend
+
+build-backend: ## Build backend for production
+	npm run build:backend
+
+migrate-backend: ## Run database migrations
+	npm run migrate:backend
+
+generate-backend: ## Generate backend types and clients
+	npm run generate:backend
+
+test-backend: ## Run backend tests
+	npm test --workspace=backend
+
+## —— 💻 Frontend ————————————————————————————————————————————————————————————
+dev-frontend: ## Start frontend in development mode
 	npm run dev:frontend
 
-build-frontend:
+build-frontend: ## Build frontend for production
 	npm run build:frontend
 
-lint-frontend:
+lint-frontend: ## Lint frontend code
 	npm run lint:frontend
 
-preview-frontend:
+preview-frontend: ## Preview production build locally
 	npm run preview:frontend
 
-info:
-	@grep -E '^[a-zA-Z0-9_-]+:.*?' Makefile | \
-	awk 'BEGIN {FS = ":.*?## "}; {printf "%-20s %s\n", $$1, $$2}'		
+test-frontend: ## Run frontend tests
+	npm test --workspace=frontend
+
+## —— 🏗️  Full Stack —————————————————————————————————————————————————————————
+dev: ## Start both frontend and backend in development mode
+	npm run dev:all
+
+build: build-backend build-frontend ## Build both frontend and backend
+
+test: test-backend test-frontend ## Run all tests
+
+## —— 🛠️  Help ——————————————————————————————————————————————————————————————
+help: ## Show this help
+	@echo ''
+	@echo 'Targets:'
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z0-9_-]+:.*?## / {printf "  ${YELLOW}%-20s${GREEN}%s${RESET}\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
