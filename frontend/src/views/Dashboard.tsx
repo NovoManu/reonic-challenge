@@ -34,26 +34,27 @@ const Dashboard: React.FC = () => {
         error={error}
       />
       <section className="bg-white rounded shadow p-6 space-y-6">
-        <h2 className="text-xl font-bold mb-2">Output Visualization</h2>
-        <ChartSection simResult={simResult} />
+        <h2 className="text-xl font-bold mb-2">Simulation Results</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <StatsCard
-            value={simResult?.totalEnergyKWh || 0}
-            label="Total Energy Charged (kWh)"
+          <StatsCard 
+            value={Math.round(simResult?.totalEnergyKWh || 0)}
+            label="Total Energy (kWh)"
           />
-          <StatsCard
-            value={simResult?.chargingEventsPerYear || 0}
-            label="Charging Events/Year"
+          <StatsCard 
+            value={Math.round((simResult?.concurrencyFactor || 0) * 100)}
+            label="Concurrency Factor (%)"
           />
-          <StatsCard
-            value={simResult?.chargingEventsPerMonth || 0}
-            label="Charging Events/Month"
-          />
-          <StatsCard
+          <StatsCard 
             value={simResult?.chargingEventsPerDay || 0}
-            label="Charging Events/Day"
+            label={`Daily Events (${simResult?.chargingEventsPerYear?.toLocaleString() || 0}/year)`}
+          />
+          <StatsCard 
+            value={simResult?.chargingEventsPerMonth || 0}
+            label={`Monthly Events (${simResult?.chargingEventsPerWeek || 0}/week)`}
           />
         </div>
+        <h2 className="text-xl font-bold mb-2">Charging Patterns</h2>
+        <ChartSection simResult={simResult} />
       </section>
     </div>
   );

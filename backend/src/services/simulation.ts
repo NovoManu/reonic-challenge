@@ -107,7 +107,7 @@ export function runSimulation({
   const theoreticalMaxPower: number = numChargePoints * chargingPower;
   const actualMaxPower: number = Math.max(...powerDemand);
   const concurrencyFactor: number = actualMaxPower / theoreticalMaxPower;
-  const exemplaryDay = new Date(2025, 0, 1);
+  const exemplaryDay = new Date();
   const chargingValues = powerDemand.slice(0, TICKS_PER_HOUR * HOURS_PER_DAY);
 
   return {

@@ -22,12 +22,11 @@ export const InputSection: React.FC<InputSectionProps> = ({
   error,
 }) => {
   const [chargePoints, setChargePoints] = useState<ChargePointType[]>([
-    { count: 1, power: 11 },
+    { count: 20, power: 11 },
   ]);
   const [arrivalMultiplier, setArrivalMultiplier] = useState(100);
   const [consumption, setConsumption] = useState(18);
 
-  // Handlers for charge point types
   const handleChargePointChange = (idx: number, field: 'count' | 'power', value: number) => {
     setChargePoints(cp => cp.map((c, i) => i === idx ? { ...c, [field]: value } : c));
   };
@@ -56,7 +55,6 @@ export const InputSection: React.FC<InputSectionProps> = ({
     <section className="bg-white rounded shadow p-6 space-y-4">
       <h2 className="text-xl font-bold mb-2">Input Parameters</h2>
       <div className="space-y-4">
-        {/* Charge Point Types */}
         <div>
           <label className="block font-medium mb-1">Charge Point Types</label>
           <div className="space-y-2">
@@ -96,8 +94,6 @@ export const InputSection: React.FC<InputSectionProps> = ({
             </button>
           </div>
         </div>
-
-        {/* Arrival Probability Multiplier */}
         <div>
           <label className="block font-medium mb-1">Arrival Probability Multiplier (%)</label>
           <input
@@ -110,8 +106,6 @@ export const InputSection: React.FC<InputSectionProps> = ({
           />
           <div className="text-sm text-gray-700">{arrivalMultiplier}%</div>
         </div>
-
-        {/* Car Consumption */}
         <div>
           <label className="block font-medium mb-1">Car Consumption (kWh)</label>
           <input
@@ -123,7 +117,6 @@ export const InputSection: React.FC<InputSectionProps> = ({
           />
         </div>
       </div>
-
       <button
         className="mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
         onClick={() => onRunSimulation(getBackendInput())}
