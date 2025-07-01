@@ -63,7 +63,7 @@ export const InputSection: React.FC<InputSectionProps> = ({
                 <input
                   type="number"
                   min={1}
-                  className="border rounded px-2 py-1 w-20"
+                  className="border border-gray-300 rounded px-2 py-1 w-20 focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                   value={cp.count}
                   onChange={e => handleChargePointChange(idx, 'count', Number(e.target.value))}
                 />
@@ -71,14 +71,14 @@ export const InputSection: React.FC<InputSectionProps> = ({
                 <input
                   type="number"
                   min={1}
-                  className="border rounded px-2 py-1 w-20"
+                  className="border border-gray-300 rounded px-2 py-1 w-20 focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                   value={cp.power}
                   onChange={e => handleChargePointChange(idx, 'power', Number(e.target.value))}
                 />
                 <span className="text-gray-600">kW</span>
                 {chargePoints.length > 1 && (
                   <button
-                    className="ml-2 text-red-500 hover:underline"
+                    className="ml-2 text-red-500 hover:text-red-700 transition-colors"
                     onClick={() => removeChargePointType(idx)}
                   >
                     Remove
@@ -87,7 +87,7 @@ export const InputSection: React.FC<InputSectionProps> = ({
               </div>
             ))}
             <button
-              className="mt-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+              className="mt-2 px-3 py-1 bg-teal-700 text-white rounded hover:bg-teal-800 transition-colors"
               onClick={addChargePointType}
             >
               Add Type
@@ -102,7 +102,7 @@ export const InputSection: React.FC<InputSectionProps> = ({
             max={200}
             value={arrivalMultiplier}
             onChange={e => setArrivalMultiplier(Number(e.target.value))}
-            className="w-full"
+            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-teal-700"
           />
           <div className="text-sm text-gray-700">{arrivalMultiplier}%</div>
         </div>
@@ -111,14 +111,14 @@ export const InputSection: React.FC<InputSectionProps> = ({
           <input
             type="number"
             min={1}
-            className="border rounded px-2 py-1 w-32"
+            className="border border-gray-300 rounded px-2 py-1 w-32 focus:ring-2 focus:ring-teal-500 focus:border-transparent"
             value={consumption}
             onChange={e => setConsumption(Number(e.target.value))}
           />
         </div>
       </div>
       <button
-        className="mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+        className="mt-4 px-4 py-2 bg-teal-700 text-white rounded hover:bg-teal-700 transition-colors shadow-md hover:shadow-lg"
         onClick={() => onRunSimulation(getBackendInput())}
         disabled={loading}
       >
