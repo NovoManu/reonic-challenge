@@ -129,17 +129,6 @@ The backend provides a RESTful API for:
     └── jest.config.js        # Test configuration
 ```
 
-## Continuous Integration/Continuous Deployment (CI/CD)
-
-This project uses GitHub Actions for CI/CD. The following workflows are set up:
-
-1. **Run Tests** (`.github/workflows/tests.yml`)
-   - Runs on: push to main, pull requests, and manual triggers
-   - Tests both frontend and backend code
-   - Sets up a PostgreSQL test database
-   - Runs all test suites
-   - Enforces code quality checks
-
 ## Setup and Installation
 
 ### Prerequisites
@@ -337,6 +326,17 @@ npm test --workspace=frontend
 - Create batch processing for multiple simulations
 - Add real-time data streaming with WebSockets
 - Implement data analytics for historical simulations
+
+### CI/CD Configuration
+
+- Set up automated testing with GitHub Actions
+- Add automated deployment to staging/production environments
+- Implement code quality checks (ESLint, Prettier)
+- Add automated dependency updates (Dependabot)
+- Include performance testing in CI pipeline
+- Set up automated database migrations
+- Add security scanning for dependencies
+- Implement automated API documentation generation
 
 ## Conclusion
 
