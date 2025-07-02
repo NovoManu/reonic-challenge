@@ -40,6 +40,9 @@ clean-frontend: ## Clean frontend artifacts only
 	rm -rf frontend/dist
 	rm -rf frontend/.next
 
+run-simulation: ## Run the simulation
+	npm run simulate
+	
 ## —— 🛠️  Backend ————————————————————————————————————————————————————————————
 start-db: ## Start PostgreSQL database using Docker
 	cd backend && docker-compose up -d

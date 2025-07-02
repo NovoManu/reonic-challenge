@@ -90,25 +90,55 @@ The backend provides a RESTful API for:
 .
 ├── README.md
 ├── package.json
+├── package-lock.json
 ├── tsconfig.json
-├── Makefile                # Project automation commands
-├── task-1/                 # Simulation implementation
-│   └── simulation.ts       # Main simulation logic
-├── frontend/               # Frontend application
+├── Makefile                    # Project automation commands
+│
+├── task-1/                     # Simulation implementation
+│   └── simulation.ts           # Main simulation logic
+│
+├── frontend/                   # Frontend application
+│   ├── public/                 # Static assets
+│   │   └── vite.svg
 │   ├── src/
-│   │   ├── components/     # Reusable UI components
-│   │   ├── views/          # Page components
-│   │   ├── api/            # API client code
-│   │   └── layout/         # Layout components
-│   └── package.json
-└── backend/                # Backend API
+│   │   ├── assets/            # Static assets
+│   │   ├── components/        # Reusable UI components
+│   │   ├── views/             # Page components
+│   │   ├── api/               # API client code
+│   │   ├── layout/            # Layout components
+│   │   ├── types.ts           # TypeScript type definitions
+│   │   ├── App.tsx            # Main application component
+│   │   ├── main.tsx           # Application entry point
+│   │   └── index.css          # Global styles
+│   ├── index.html
+│   ├── package.json
+│   ├── tsconfig.json
+│   ├── tsconfig.node.json
+│   └── vite.config.ts         # Vite configuration
+│
+└── backend/                    # Backend API
     ├── src/
-    │   ├── api/            # API routes and controllers
-    │   ├── services/       # Business logic
-    │   └── server.ts       # Express server setup
-    ├── prisma/             # Database schema and migrations
-    └── package.json
+    │   ├── api/              # API routes and controllers
+    │   ├── services/         # Business logic
+    │   ├── utils/            # Utility functions
+    │   ├── index.ts          # Application entry point
+    │   └── server.ts         # Express server setup
+    ├── docker-compose.yml    # Docker compose for PostgreSQL
+    ├── package.json
+    ├── tsconfig.json
+    └── jest.config.js        # Test configuration
 ```
+
+## Continuous Integration/Continuous Deployment (CI/CD)
+
+This project uses GitHub Actions for CI/CD. The following workflows are set up:
+
+1. **Run Tests** (`.github/workflows/tests.yml`)
+   - Runs on: push to main, pull requests, and manual triggers
+   - Tests both frontend and backend code
+   - Sets up a PostgreSQL test database
+   - Runs all test suites
+   - Enforces code quality checks
 
 ## Setup and Installation
 
@@ -116,7 +146,7 @@ The backend provides a RESTful API for:
 
 - Node.js (v16 or later)
 - npm (v7 or later)
-- PostgreSQL (for backend)
+- Docker (for running PostgreSQL)
 - Make (optional, for using Makefile commands)
 
 ### Installation
@@ -125,7 +155,7 @@ The backend provides a RESTful API for:
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone git@github.com:NovoManu/reonic-challenge.git
    cd reonic-challenge
    ```
 
@@ -150,7 +180,7 @@ The backend provides a RESTful API for:
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone git@github.com:NovoManu/reonic-challenge.git
    cd reonic-challenge
    ```
 
