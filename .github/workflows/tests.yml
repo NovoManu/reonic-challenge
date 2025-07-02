@@ -38,9 +38,16 @@ jobs:
       
       - name: Install Dependencies
         run: |
+          # Install root dependencies
           npm ci
-          cd backend && npm ci
-          cd ../frontend && npm ci
+          
+          # Install backend dependencies including devDependencies
+          cd backend
+          npm install
+          
+          # Install frontend dependencies
+          cd ../frontend
+          npm ci
           cd ..
       
       - name: Set up PostgreSQL
