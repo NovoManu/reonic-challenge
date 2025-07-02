@@ -41,6 +41,12 @@ clean-frontend: ## Clean frontend artifacts only
 	rm -rf frontend/.next
 
 ## —— 🛠️  Backend ————————————————————————————————————————————————————————————
+start-db: ## Start PostgreSQL database using Docker
+	cd backend && docker-compose up -d
+
+stop-db: ## Stop PostgreSQL database container
+	cd backend && docker-compose down
+
 dev-backend: ## Start backend in development mode
 	npm run dev:backend
 
