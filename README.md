@@ -148,7 +148,21 @@ The backend provides a RESTful API for:
    cd reonic-challenge
    ```
 
-2. Install all dependencies:
+2. Set up environment variables:
+   ```bash
+   # Navigate to the backend directory
+   cd backend
+   
+   # Copy the example environment file
+   cp .env.example .env
+   
+   # Edit the .env file with your configuration
+   # vim .env  # or use your preferred text editor
+   ```
+   
+   Update the environment variables in the `.env` file according to your local setup. The available configuration options are documented in the `.env.example` file.
+
+3. Install all dependencies:
    ```bash
    make install
    ```
@@ -173,7 +187,21 @@ The backend provides a RESTful API for:
    cd reonic-challenge
    ```
 
-2. Install root dependencies:
+2. Set up environment variables:
+   ```bash
+   # Navigate to the backend directory
+   cd backend
+   
+   # Copy the example environment file
+   cp .env.example .env
+   
+   # Edit the .env file with your configuration
+   # nano .env  # or use your preferred text editor
+   ```
+   
+   Update the environment variables in the `.env` file according to your local setup. The available configuration options are documented in the `.env.example` file.
+
+3. Install root dependencies:
    ```bash
    npm install
    ```
