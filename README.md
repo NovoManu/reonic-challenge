@@ -158,6 +158,9 @@ The backend provides a RESTful API for:
    
    # Edit the .env file with your configuration
    # vim .env  # or use your preferred text editor
+
+   # Navigate back to root directory
+   cd .. 
    ```
    
    Update the environment variables in the `.env` file according to your local setup. The available configuration options are documented in the `.env.example` file.
