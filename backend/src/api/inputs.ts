@@ -1,40 +1,21 @@
 import { FastifyInstance } from 'fastify'
 import { PrismaClient } from '@prisma/client'
-
-interface SimulationInput {
-    numChargePoints: number;
-    arrivalProbabilityMult?: number;
-    carConsumption?: number;
-    chargingPower?: number;
-}
-
-export const validateInput = (input: Partial<SimulationInput>) => {
-    if (typeof input.numChargePoints !== 'number' || input.numChargePoints <= 0) {
-        throw new Error('numChargePoints must be a positive number');
-    }
-    if (input.arrivalProbabilityMult !== undefined && (typeof input.arrivalProbabilityMult !== 'number' || input.arrivalProbabilityMult < 0)) {
-        throw new Error('arrivalProbabilityMult must be a non-negative number');
-    }
-    if (input.carConsumption !== undefined && (typeof input.carConsumption !== 'number' || input.carConsumption <= 0)) {
-        throw new Error('carConsumption must be a positive number');
-    }
-    if (input.chargingPower !== undefined && (typeof input.chargingPower !== 'number' || input.chargingPower <= 0)) {
-        throw new Error('chargingPower must be a positive number');
-    }
-};
+import { SimulationInput, validateSimulationInput, applyDefaultValues } from '../utils/validation'
+import { handleValidationError, handleNotFoundError, handleServerError } from '../utils/errorHandler'
 
 export const handlers = (fastify: FastifyInstance, prisma: PrismaClient) => {
     fastify.post('/inputs', async (request, reply) => {
         try {
-            const { numChargePoints, arrivalProbabilityMult = 100, carConsumption = 18, chargingPower = 11 } = request.body as SimulationInput;
-            validateInput({ numChargePoints, arrivalProbabilityMult, carConsumption, chargingPower });
+            const inputData = request.body as Partial<SimulationInput>;
+            validateSimulationInput(inputData);
+            const validatedInput = applyDefaultValues(inputData);
             
             const input = await prisma.simulationInput.create({
-                data: { numChargePoints, arrivalProbabilityMult, carConsumption, chargingPower },
+                data: validatedInput,
             });
             return input;
         } catch (error) {
-            reply.status(400).send({ error: error instanceof Error ? error.message : 'Invalid input data' });
+            handleValidationError(reply, error);
         }
     });
 
@@ -42,7 +23,7 @@ export const handlers = (fastify: FastifyInstance, prisma: PrismaClient) => {
         try {
             return await prisma.simulationInput.findMany();
         } catch (error) {
-            reply.status(500).send({ error: 'Failed to fetch simulation inputs' });
+            handleServerError(reply, error);
         }
     });
 
@@ -56,11 +37,11 @@ export const handlers = (fastify: FastifyInstance, prisma: PrismaClient) => {
 
             const input = await prisma.simulationInput.findUnique({ where: { id: numId } });
             if (!input) {
-                return reply.status(404).send({ error: 'Input not found' });
+                return handleNotFoundError(reply, 'Input not found');
             }
             return input;
         } catch (error) {
-            reply.status(500).send({ error: 'Failed to fetch simulation input' });
+            handleServerError(reply, error);
         }
     });
 
@@ -73,7 +54,7 @@ export const handlers = (fastify: FastifyInstance, prisma: PrismaClient) => {
             }
 
             const updateData = request.body as SimulationInput;
-            validateInput(updateData);
+            validateSimulationInput(updateData);
 
             const updated = await prisma.simulationInput.update({
                 where: { id: numId },
@@ -81,11 +62,7 @@ export const handlers = (fastify: FastifyInstance, prisma: PrismaClient) => {
             });
             return updated;
         } catch (error) {
-            if (error instanceof Error) {
-                reply.status(400).send({ error: error.message });
-            } else {
-                reply.status(500).send({ error: 'Failed to update simulation input' });
-            }
+            handleValidationError(reply, error);
         }
     });
 
@@ -101,9 +78,9 @@ export const handlers = (fastify: FastifyInstance, prisma: PrismaClient) => {
             return { success: true };
         } catch (error) {
             if (error instanceof Error && error.message.includes('Record to delete does not exist')) {
-                reply.status(404).send({ error: 'Input not found' });
+                handleNotFoundError(reply, 'Input not found');
             } else {
-                reply.status(500).send({ error: 'Failed to delete simulation input' });
+                handleServerError(reply, error);
             }
         }
     });

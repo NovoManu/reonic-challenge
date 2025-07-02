@@ -3,12 +3,7 @@ type ChargingStation = number;
 type PowerDemand = number[];
 type ProbabilityDistribution = number[];
 
-export interface SimulationInput {
-  numChargePoints: number;
-  arrivalProbabilityMult?: number;
-  carConsumption?: number;
-  chargingPower?: number;
-}
+import { SimulationInput } from '../utils/validation';
 
 export interface SimulationResult {
   totalEnergyKWh: number;
