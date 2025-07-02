@@ -200,6 +200,9 @@ The backend provides a RESTful API for:
    
    # Edit the .env file with your configuration
    # nano .env  # or use your preferred text editor
+
+   # Navigate back to root directory
+   cd .. 
    ```
    
    Update the environment variables in the `.env` file according to your local setup. The available configuration options are documented in the `.env.example` file.
@@ -223,6 +226,7 @@ The backend provides a RESTful API for:
 5. Start the PostgreSQL database using Docker:
    ```bash
    cd backend && docker-compose up -d
+   cd ..
    ```
 
 6. Set up the database (for backend):
