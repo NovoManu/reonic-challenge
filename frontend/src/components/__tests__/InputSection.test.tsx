@@ -81,7 +81,7 @@ describe('InputSection', () => {
     const addButton = screen.getByText('Add Type');
     await userEvent.click(addButton);
     
-    const removeButtons = screen.getAllByAltText('Remove');
+    const removeButtons = screen.getAllByLabelText(/Remove charge point type/);
     await userEvent.click(removeButtons[0]);
     
     const countInputs = screen.getAllByRole('spinbutton');

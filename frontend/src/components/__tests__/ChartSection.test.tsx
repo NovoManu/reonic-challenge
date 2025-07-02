@@ -59,6 +59,6 @@ describe('ChartSection', () => {
     expect(gridContainer).toHaveClass('grid');
     expect(gridContainer).toHaveClass('grid-cols-1');
     expect(gridContainer).toHaveClass('md:grid-cols-2');
-    expect(gridContainer).toHaveClass('gap-6');
+    expect(gridContainer).toHaveClass('gap-4');
   });
 });

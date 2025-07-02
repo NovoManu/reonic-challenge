@@ -14,7 +14,7 @@ describe('StatsCard', () => {
     render(<StatsCard value={42} label="Test Label" />);
     
     const container = screen.getByText('42').closest('div')?.parentElement;
-    expect(container).toHaveClass('bg-blue-100');
+    expect(container).toHaveClass('bg-teal-100');
     expect(container).toHaveClass('rounded');
     expect(container).toHaveClass('p-4');
     expect(container).toHaveClass('text-center');

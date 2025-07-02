@@ -5,6 +5,9 @@ type ProbabilityDistribution = number[];
 
 import { SimulationInput } from '../utils/validation';
 
+// Re-export SimulationInput for tests
+export { SimulationInput };
+
 export interface SimulationResult {
   totalEnergyKWh: number;
   theoreticalMaxPower: number;

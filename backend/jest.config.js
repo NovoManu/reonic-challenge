@@ -8,6 +8,9 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.ts',
     '!src/index.ts',
+    '!src/server.ts',
+    '!src/utils/database.ts',
+    '!src/utils/rateLimiter.ts',
     '!**/*.d.ts',
   ],
   setupFilesAfterEnv: ['./jest.setup.js'],

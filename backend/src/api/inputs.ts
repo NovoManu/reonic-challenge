@@ -3,6 +3,9 @@ import { PrismaClient } from '@prisma/client'
 import { SimulationInput, validateSimulationInput, applyDefaultValues } from '../utils/validation'
 import { handleValidationError, handleNotFoundError, handleServerError } from '../utils/errorHandler'
 
+// Export validateInput for tests
+export const validateInput = validateSimulationInput
+
 export const handlers = (fastify: FastifyInstance, prisma: PrismaClient) => {
     fastify.post('/inputs', async (request, reply) => {
         try {
